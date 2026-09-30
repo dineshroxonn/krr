@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plainly Studio</title>
+<meta name="description" content="Plainly is a small AI web design studio. We design, build and write websites for AI companies, live in four weeks.">
+<meta name="theme-color" content="#F1F2F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0C11" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Plainly Studio">
+<meta property="og:description" content="Websites that say it plainly. Design, build and copy for AI companies, live in four weeks.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230D1017'/%3E%3Cpath d='M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z' fill='%232446FF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* Layout: one pinned stage where glossy shapes rearrange as the headline sharpens, then three quiet sections on a hairline grid. */
+:root {
+  --bg: #F1F2F6;          /* cool paper */
+  --surface: #FFFFFF;
+  --ink: #0D1017;
+  --on-ink: #F1F2F6;
+  --muted: #5A6172;
+  --line: #D8DBE4;
+  --cobalt: #2446FF;      /* the one bold colour: shapes, links, progress */
+  --cobalt-ink: #FFFFFF;
+  --periwinkle: #9AAAFF;
+  --on-peri: #0D1017;
+  --graphite: #2B2F38;
+  --porcelain: #F7F8FC;
+  --header-bg: rgba(241, 242, 246, 0.78);
+
+  --font-display: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.125rem;
+  --step-2: clamp(1.375rem, 1.15rem + 0.9vw, 1.875rem);
+  --step-3: clamp(2.25rem, 1.3rem + 3.6vw, 4.25rem);
+  --step-hero: clamp(2.5rem, 1.1rem + 4.4vw, 5.25rem);
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --maxw: 1240px;
+  --header-h: 72px;
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A0C11;
+    --surface: #12151D;
+    --ink: #EDEFF5;
+    --on-ink: #0A0C11;
+    --muted: #9097A6;
+    --line: #252A36;
+    --cobalt: #4A66FF;
+    --cobalt-ink: #FFFFFF;
+    --periwinkle: #8C9CFF;
+    --on-peri: #0A0C11;
+    --graphite: #C7CCD8;
+    --porcelain: #D9DDE8;
+    --header-bg: rgba(10, 12, 17, 0.78);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A0C11;
+  --surface: #12151D;
+  --ink: #EDEFF5;
+  --on-ink: #0A0C11;
+  --muted: #9097A6;
+  --line: #252A36;
+  --cobalt: #4A66FF;
+  --cobalt-ink: #FFFFFF;
+  --periwinkle: #8C9CFF;
+  --on-peri: #0A0C11;
+  --graphite: #C7CCD8;
+  --porcelain: #D9DDE8;
+  --header-bg: rgba(10, 12, 17, 0.78);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+img, svg, canvas { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+button { font: inherit; }
+::selection { background: var(--cobalt); color: var(--cobalt-ink); }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 6px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: fixed; left: var(--gutter); top: 12px; z-index: 100;
+  padding: 10px 16px; border-radius: 999px;
+  background: var(--ink); color: var(--on-ink); text-decoration: none;
+  transform: translateY(-160%); transition: transform 0.2s var(--ease);
+}
+.skip-link:focus { transform: none; }
+main:focus { outline: none; }
+
+.wrap { width: 100%; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 500 0.75rem/1 var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.eyebrow::before {
+  content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--cobalt);
+}
+.soft { color: var(--muted); }
+
+/* Buttons and links */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 22px; border-radius: 999px;
+  background: var(--ink); color: var(--on-ink);
+  font: 500 0.9375rem/1 var(--font-body); text-decoration: none; white-space: nowrap;
+  border: 0; cursor: pointer;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.btn svg { width: 16px; height: 16px; transition: transform 0.25s var(--ease); }
+.btn:hover { background: var(--cobalt); color: var(--cobalt-ink); }
+.btn:hover svg { transform: translateX(3px); }
+.btn:active { transform: scale(0.98); }
+.btn-small { min-height: 38px; padding: 0 16px; font-size: 0.875rem; }
+.link-arrow {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 48px;
+  color: var(--ink); font-weight: 500; font-size: 0.9375rem; text-decoration: none;
+}
+.link-arrow span { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.3s var(--ease); }
+.link-arrow:hover span { background-size: 100% 1px; }
+
+/* Header */
+.site-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition: background-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.site-header.is-solid {
+  background: var(--header-bg);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  backdrop-filter: saturate(1.4) blur(14px);
+  box-shadow: 0 1px 0 var(--line);
+}
+.site-header .bar { display: flex; align-items: center; gap: 24px; height: var(--header-h); }
+.wordmark {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 600 1.25rem/1 var(--font-display); letter-spacing: -0.01em; text-decoration: none; color: var(--ink);
+}
+.mark { position: relative; width: 16px; height: 16px; flex: none; }
+.mark::before, .mark::after { content: ""; position: absolute; background: var(--cobalt); border-radius: 2px; }
+.mark::before { left: 5px; top: 0; width: 6px; height: 16px; }
+.mark::after { left: 0; top: 5px; width: 16px; height: 6px; }
+.nav { display: flex; gap: 28px; margin-left: auto; }
+.nav a {
+  font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; padding-block: 8px; transition: color 0.2s;
+}
+.nav a:hover { color: var(--ink); }
+@media (max-width: 719px) {
+  .nav { display: none; }
+  .site-header .btn-small { margin-left: auto; }
+}
+
+/* Hero: pinned stage, three statements */
+.hero { position: relative; background: var(--bg); }
+.hero-sticky { position: relative; height: 100vh; height: 100svh; min-height: 540px; overflow: hidden; }
+.js .hero { height: 330vh; height: 330svh; }
+.js .hero-sticky { position: sticky; top: 0; }
+.hero-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0; transition: opacity 1.2s var(--ease);
+}
+.hero-canvas.is-ready { opacity: 1; }
+.hero-fallback {
+  display: none; position: absolute; inset: 0;
+  background:
+    radial-gradient(34% 40% at 72% 48%, color-mix(in srgb, var(--cobalt) 26%, transparent), transparent 70%),
+    radial-gradient(18% 22% at 86% 24%, color-mix(in srgb, var(--periwinkle) 40%, transparent), transparent 70%),
+    radial-gradient(14% 16% at 60% 78%, color-mix(in srgb, var(--graphite) 16%, transparent), transparent 70%);
+}
+.hero.no-webgl .hero-fallback { display: block; }
+.hero.no-webgl .hero-canvas { display: none; }
+.hero-inner {
+  position: relative; z-index: 1; height: 100%;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-top: calc(var(--header-h) + 16px); padding-bottom: 96px;
+  pointer-events: none;
+}
+.hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; max-width: 34rem; pointer-events: auto; }
+.stages { display: grid; width: 100%; }
+.js .stages.is-synced { transition: height 0.7s var(--ease); }
+.stage { grid-area: 1 / 1; align-self: start; display: flex; flex-direction: column; gap: 18px; }
+.stage-title {
+  font: 500 var(--step-hero)/1.02 var(--font-display);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.stage-lede { max-width: 30rem; font-size: var(--step-1); line-height: 1.55; color: var(--muted); text-wrap: pretty; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+
+.stage:not(:first-child) { display: none; }
+.js .stage:not(:first-child) { display: flex; }
+.js .stage:not(.is-active) { pointer-events: none; }
+.js .stage-title .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.06em 0 0.14em; margin: -0.06em 0 -0.14em; }
+.js .stage-title .w > span { display: inline-block; transform: translateY(112%); transition: transform 0.9s var(--ease); transition-delay: calc(var(--i, 0) * 40ms); }
+.js .stage.is-active .stage-title .w > span { transform: none; }
+.js .stage.is-past .stage-title .w > span { transform: translateY(-112%); transition-duration: 0.6s; transition-delay: calc(var(--i, 0) * 22ms); }
+.js .stage-lede { opacity: 0; transform: translateY(14px); transition: opacity 0.4s var(--ease), transform 0.6s var(--ease); }
+.js .stage.is-active .stage-lede { opacity: 1; transform: none; transition-delay: 0.22s; }
+
+.hero-meter {
+  position: absolute; left: 0; right: 0; bottom: 28px; z-index: 1;
+  display: flex; align-items: center; gap: 14px;
+  font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.meter-now { color: var(--ink); }
+.meter-track { position: relative; width: 120px; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.meter-fill { position: absolute; inset: 0; background: var(--cobalt); transform-origin: 0 50%; transform: scaleX(0); }
+.meter-hint { transition: opacity 0.4s var(--ease); }
+.hero.is-scrolled .meter-hint { opacity: 0; }
+.hero-meter { display: none; }
+.js .hero-meter { display: flex; }
+
+@media (min-width: 760px) and (min-aspect-ratio: 19/20) {
+  .hero-inner { justify-content: flex-start; padding-top: max(calc(var(--header-h) + 32px), calc(50vh - 250px)); padding-bottom: 72px; }
+  .hero-copy { max-width: min(44vw, 40rem); }
+}
+
+/* Sections */
+.section { padding-block: clamp(96px, 12vw, 168px); scroll-margin-top: var(--header-h); }
+.section + .section { border-top: 1px solid var(--line); }
+.section-head {
+  display: grid; gap: 20px 48px; align-items: end;
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+.section-head .eyebrow { grid-column: 1 / -1; }
+.h2 { font: 500 var(--step-3)/1.04 var(--font-display); letter-spacing: -0.025em; text-wrap: balance; }
+.section-intro { max-width: 34rem; font-size: var(--step-1); color: var(--muted); text-wrap: pretty; }
+@media (min-width: 900px) {
+  .section-head { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .section-intro { justify-self: end; }
+}
+
+/* Services */
+.service-list { border-bottom: 1px solid var(--line); }
+.service {
+  display: grid; gap: 14px 48px; padding-block: clamp(28px, 4vw, 44px);
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 1px solid var(--line);
+}
+.service-name { display: flex; align-items: center; gap: 18px; }
+.service h3 { font: 500 var(--step-2)/1.15 var(--font-display); letter-spacing: -0.015em; }
+.service-desc { max-width: 38rem; color: var(--muted); font-size: 1.0625rem; text-wrap: pretty; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; align-content: start; }
+.tags li {
+  font: 500 0.6875rem/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px;
+}
+@media (min-width: 900px) {
+  .service { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) minmax(0, 0.9fr); align-items: start; }
+  .tags { justify-content: flex-end; }
+}
+.glyph { --g: var(--cobalt); position: relative; width: 30px; height: 30px; flex: none; }
+.glyph::before, .glyph::after { content: ""; position: absolute; }
+.glyph-cross::before, .glyph-cross::after {
+  border-radius: 3px;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--g) 55%, white), var(--g) 55%, color-mix(in srgb, var(--g) 72%, black));
+}
+.glyph-cross::before { left: 10px; top: 0; width: 10px; height: 30px; }
+.glyph-cross::after { left: 0; top: 10px; width: 30px; height: 10px; }
+.glyph-cyl::before {
+  left: 8px; top: 1px; width: 14px; height: 28px; border-radius: 7px / 4px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--g) 70%, black), color-mix(in srgb, var(--g) 55%, white) 38%, var(--g) 72%);
+}
+.glyph-cyl::after { left: 8px; top: 1px; width: 14px; height: 7px; border-radius: 50%; background: color-mix(in srgb, var(--g) 45%, white); }
+.glyph-sphere::before {
+  inset: 2px; border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--graphite) 35%, white) 0 9%, var(--graphite) 48%, color-mix(in srgb, var(--graphite) 70%, black));
+}
+
+/* Process */
+.timeline {
+  display: grid; gap: 10px;
+  padding: clamp(16px, 3vw, 28px);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+}
+.tl-weeks, .tl-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.tl-weeks { margin-bottom: 4px; }
+.tl-weeks span {
+  font: 500 0.6875rem/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.tl-bar {
+  grid-column: var(--from) / var(--to);
+  display: flex; align-items: center; min-height: 44px; padding-inline: 16px; border-radius: 999px;
+  font: 500 0.9375rem/1 var(--font-body); white-space: nowrap; overflow: hidden;
+}
+.tl-brief { background: var(--ink); color: var(--on-ink); }
+.tl-draft { background: var(--cobalt); color: var(--cobalt-ink); }
+.tl-launch { background: var(--periwinkle); color: var(--on-peri); }
+.steps {
+  display: grid; gap: 40px clamp(24px, 4vw, 56px); margin-top: clamp(40px, 6vw, 64px);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 820px) { .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.step { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid var(--line); }
+.step-top {
+  display: flex; justify-content: space-between; gap: 12px;
+  font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.step-num { color: var(--cobalt); }
+.step h3 { font: 500 var(--step-2)/1.15 var(--font-display); letter-spacing: -0.015em; }
+.step p { color: var(--muted); max-width: 30rem; text-wrap: pretty; }
+.fine { margin-top: 48px; font-size: var(--step--1); color: var(--muted); }
+
+/* Contact */
+.contact { padding-bottom: clamp(72px, 9vw, 120px); }
+.contact-title { margin-top: 22px; font: 500 var(--step-hero)/1.02 var(--font-display); letter-spacing: -0.03em; text-wrap: balance; }
+.email-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: clamp(32px, 5vw, 56px); }
+.email {
+  min-width: 0; overflow-wrap: anywhere;
+  font: 500 clamp(1.625rem, 0.9rem + 3.4vw, 3.75rem)/1.1 var(--font-display); letter-spacing: -0.02em;
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.18em;
+  text-decoration-color: var(--cobalt);
+  transition: color 0.2s;
+}
+.email:hover { color: var(--cobalt); }
+.copy-btn {
+  min-height: 38px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+  background: transparent; color: var(--ink); border: 1px solid var(--line);
+  font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.copy-btn:hover { border-color: var(--ink); }
+.contact-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px;
+  margin-top: clamp(40px, 6vw, 64px); padding-top: 28px; border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+.contact-meta .btn { margin-left: auto; }
+@media (max-width: 599px) { .contact-meta .btn { margin-left: 0; } }
+.availability { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); }
+.availability::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--cobalt); box-shadow: 0 0 0 4px color-mix(in srgb, var(--cobalt) 22%, transparent); }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--line); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.footer-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; font-size: var(--step--1); color: var(--muted); }
+.footer-inner .wordmark { font-size: 1rem; }
+.footer-inner a:not(.wordmark) { margin-left: auto; text-decoration: none; }
+.footer-inner a:not(.wordmark):hover { color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .stage-title .w > span, .js .stage-lede, .js .stages.is-synced, .hero-canvas, .meter-hint {
+    transition-duration: 0.01ms !important; transition-delay: 0s !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="wordmark" href="#top" aria-label="Plainly, back to top"><span class="mark" aria-hidden="true"></span>Plainly</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-small" href="#contact">Book an intro call</a>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="hero" id="top" aria-label="Introduction">
+    <div class="hero-sticky">
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-fallback" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">AI web design studio</p>
+          <div class="stages">
+            <div class="stage is-active">
+              <h1 class="stage-title">Websites that say it plainly.</h1>
+              <p class="stage-lede">We design, build and write websites for AI companies, so people understand what you do in the first five seconds.</p>
+            </div>
+            <div class="stage">
+              <p class="stage-title" role="heading" aria-level="2">Complex products, made clear.</p>
+              <p class="stage-lede">We sort out positioning, structure and words first. Every section has to earn its place before anything gets designed.</p>
+            </div>
+            <div class="stage">
+              <p class="stage-title" role="heading" aria-level="2">Designed, built and live in four weeks.</p>
+              <p class="stage-lede">One small team from the first call to launch day. You get a fast site your own team can edit, with no retainer attached.</p>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Book an intro call <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="link-arrow" href="#services"><span>See what we do</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="wrap hero-meter" aria-hidden="true">
+        <span><span class="meter-now">01</span> / 03</span>
+        <span class="meter-track"><span class="meter-fill"></span></span>
+        <span class="meter-hint">Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Services</p>
+        <h2 class="h2" id="services-title">Three things, done well.</h2>
+        <p class="section-intro">We keep the offer small so the work stays good. Most clients book all three, and each one works on its own.</p>
+      </div>
+      <ul class="service-list">
+        <li class="service">
+          <div class="service-name"><span class="glyph glyph-cross" aria-hidden="true"></span><h3>Website design</h3></div>
+          <p class="service-desc">Layout, type and a small visual system built around what your product actually does. Designed in the browser and reviewed on real screens.</p>
+          <ul class="tags" aria-label="Includes"><li>Art direction</li><li>Design system</li><li>Responsive layouts</li></ul>
+        </li>
+        <li class="service">
+          <div class="service-name"><span class="glyph glyph-cyl" aria-hidden="true"></span><h3>Build and launch</h3></div>
+          <p class="service-desc">Fast, hand-built pages on a stack your team can edit, whether that is Framer, Webflow or plain code. Hosting, analytics and search basics are included.</p>
+          <ul class="tags" aria-label="Includes"><li>Framer, Webflow or code</li><li>Performance</li><li>Analytics</li></ul>
+        </li>
+        <li class="service">
+          <div class="service-name"><span class="glyph glyph-sphere" aria-hidden="true"></span><h3>Copy and content</h3></div>
+          <p class="service-desc">We write the words with you. Clear headlines, claims you can back up, and pages that answer the questions buyers really ask.</p>
+          <ul class="tags" aria-label="Includes"><li>Messaging</li><li>Page copy</li><li>Product naming</li></ul>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="process" aria-labelledby="process-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Process</p>
+        <h2 class="h2" id="process-title">Fast because it’s <span class="soft">simple.</span></h2>
+        <p class="section-intro">Three steps over four weeks, with the same people from the first call to launch day.</p>
+      </div>
+      <div class="timeline" role="img" aria-label="Timeline: Brief in week 1, Draft in weeks 2 and 3, Launch in week 4.">
+        <div class="tl-weeks"><span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span></div>
+        <div class="tl-row"><span class="tl-bar tl-brief" style="--from: 1; --to: 2">Brief</span></div>
+        <div class="tl-row"><span class="tl-bar tl-draft" style="--from: 2; --to: 4">Draft</span></div>
+        <div class="tl-row"><span class="tl-bar tl-launch" style="--from: 4; --to: 5">Launch</span></div>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <div class="step-top"><span class="step-num">01</span><span>Week 1</span></div>
+          <h3>Brief</h3>
+          <p>One 60-minute call and a shared doc. We agree who the site is for, what it has to say, and how we will know it works.</p>
+        </li>
+        <li class="step">
+          <div class="step-top"><span class="step-num">02</span><span>Weeks 2–3</span></div>
+          <h3>Draft</h3>
+          <p>Copy and design arrive together as a working page in the browser. You comment on the real thing instead of a mockup.</p>
+        </li>
+        <li class="step">
+          <div class="step-top"><span class="step-num">03</span><span>Week 4</span></div>
+          <h3>Launch</h3>
+          <p>We build, test on real phones and laptops, and go live. Then we hand over the keys and a short guide to editing it yourself.</p>
+        </li>
+      </ol>
+      <p class="fine">Scope and price are fixed at the end of week one, so nothing changes on you later.</p>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2 class="contact-title" id="contact-title">Tell us what you’re <span class="soft">building.</span></h2>
+      <div class="email-row">
+        <a class="email" id="email" href="mailto:hello@plainly.studio">hello@plainly.studio</a>
+        <button class="copy-btn" type="button" id="copy-email" data-copy="hello@plainly.studio">Copy</button>
+        <span class="sr-only" id="copy-status" aria-live="polite"></span>
+      </div>
+      <div class="contact-meta">
+        <p class="availability">Booking projects for November 2026</p>
+        <p>We reply within one working day.</p>
+        <a class="btn" href="mailto:hello@plainly.studio?subject=Intro%20call">Book an intro call <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <a class="wordmark" href="#top" aria-label="Plainly, back to top"><span class="mark" aria-hidden="true"></span>Plainly</a>
+    <p>© 2026 Plainly Studio. Websites for AI companies.</p>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+/* Page behaviour: header state, hero staging, copy button. Runs without the 3D layer. */
+(function () {
+  var header = document.querySelector('.site-header');
+  var hero = document.querySelector('.hero');
+  var sticky = hero && hero.querySelector('.hero-sticky');
+  var stagesEl = hero && hero.querySelector('.stages');
+  var stages = hero ? Array.prototype.slice.call(hero.querySelectorAll('.stage')) : [];
+  var meterNow = document.querySelector('.meter-now');
+  var meterFill = document.querySelector('.meter-fill');
+  // Scroll progress (0..1) where the headline changes; the 3D layer uses the same values.
+  var THRESHOLDS = [0.32, 0.73];
+
+  // Split each hero statement into words so they can slide in; keep the full text for screen readers.
+  stages.forEach(function (stage) {
+    var title = stage.querySelector('.stage-title');
+    var text = title.textContent.replace(/\s+/g, ' ').trim();
+    title.textContent = '';
+    var sr = document.createElement('span');
+    sr.className = 'sr-only';
+    sr.textContent = text;
+    title.appendChild(sr);
+    text.split(' ').forEach(function (word, i, all) {
+      var w = document.createElement('span');
+      w.className = 'w';
+      w.setAttribute('aria-hidden', 'true');
+      var inner = document.createElement('span');
+      inner.textContent = word;
+      inner.style.setProperty('--i', i);
+      w.appendChild(inner);
+      title.appendChild(w);
+      if (i < all.length - 1) title.appendChild(document.createTextNode(' '));
+    });
+  });
+
+  function progress() {
+    if (!hero || !sticky) return 0;
+    var travel = hero.offsetHeight - sticky.offsetHeight;
+    if (travel <= 0) return 0;
+    var p = -hero.getBoundingClientRect().top / travel;
+    return p < 0 ? 0 : p > 1 ? 1 : p;
+  }
+
+  var current = -1;
+  function setStage(index) {
+    if (index === current) return;
+    current = index;
+    stages.forEach(function (stage, k) {
+      stage.classList.toggle('is-active', k === index);
+      stage.classList.toggle('is-past', k < index);
+    });
+    if (meterNow) meterNow.textContent = '0' + (index + 1);
+    syncHeight();
+  }
+
+  // The statements are stacked; size the stack to the one showing so the buttons sit right under it.
+  function syncHeight() {
+    if (!stagesEl || current < 0) return;
+    stagesEl.style.height = stages[current].offsetHeight + 'px';
+    if (!stagesEl.classList.contains('is-synced')) {
+      requestAnimationFrame(function () { stagesEl.classList.add('is-synced'); });
+    }
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeight);
+  window.addEventListener('resize', syncHeight);
+
+  var queued = false;
+  function update() {
+    queued = false;
+    var p = progress();
+    setStage(p < THRESHOLDS[0] ? 0 : p < THRESHOLDS[1] ? 1 : 2);
+    if (meterFill) meterFill.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    if (hero) hero.classList.toggle('is-scrolled', p > 0.02);
+    if (header) header.classList.toggle('is-solid', window.scrollY > 8);
+  }
+  function queue() {
+    if (!queued) { queued = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  update();
+
+  window.Plainly = { progress: progress, thresholds: THRESHOLDS };
+
+  // Copy the email address; fall back to selecting it if the clipboard is unavailable.
+  var copyBtn = document.getElementById('copy-email');
+  var status = document.getElementById('copy-status');
+  var email = document.getElementById('email');
+  var resetTimer;
+  function selectEmail() {
+    var range = document.createRange();
+    range.selectNodeContents(email);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  function say(label, message) {
+    copyBtn.textContent = label;
+    status.textContent = message;
+    clearTimeout(resetTimer);
+    resetTimer = setTimeout(function () { copyBtn.textContent = 'Copy'; }, 2200);
+  }
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var value = copyBtn.getAttribute('data-copy');
+      var done = function () { say('Copied', 'Email address copied.'); };
+      var fail = function () { selectEmail(); say('Selected', 'Email address selected. Copy it with your keyboard.'); };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(value).then(done, fail);
+        } else {
+          fail();
+        }
+      } catch (e) {
+        fail();
+      }
+    });
+  }
+})();
+</script>
+
+<script type="module">
+/* 3D hero: glossy shapes that scatter, line up, then gather around a small website as you scroll. */
+const THREE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.170.0/three.module.min.js';
+const hero = document.querySelector('.hero');
+const sticky = hero && hero.querySelector('.hero-sticky');
+const canvas = hero && hero.querySelector('.hero-canvas');
+
+function hasWebGL() {
+  try {
+    const c = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl')));
+  } catch (e) {
+    return false;
+  }
+}
+
+if (hero && canvas && window.Plainly) {
+  if (!hasWebGL()) {
+    hero.classList.add('no-webgl');
+  } else {
+    import(THREE_URL)
+      .then((THREE) => start(THREE))
+      .catch((err) => {
+        console.warn('Plainly: 3D hero unavailable, showing the static version.', err);
+        hero.classList.add('no-webgl');
+      });
+  }
+}
+
+function start(THREE) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setClearColor(0x000000, 0);
+  renderer.toneMapping = THREE.NeutralToneMapping;
+  renderer.toneMappingExposure = 1.0;
+
+  // Render-loop state, declared first because layout and theme changes request frames.
+  let running = false;
+  let inView = true;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+  camera.position.set(0, 0, 14);
+
+  // Soft studio for reflections: a white room with a few bright panels.
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(buildStudio(THREE), 0.04).texture;
+  pmrem.dispose();
+  const key = new THREE.DirectionalLight(0xffffff, 1.1);
+  key.position.set(3, 6, 8);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xc9d4ff, 0.5);
+  fill.position.set(-6, -3, 4);
+  scene.add(fill);
+
+  // Materials take their colours from the page tokens so light and dark themes match.
+  const mats = {
+    cobalt: new THREE.MeshPhysicalMaterial({ roughness: 0.26, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.1 }),
+    peri: new THREE.MeshPhysicalMaterial({ roughness: 0.3, metalness: 0, clearcoat: 0.8, clearcoatRoughness: 0.18 }),
+    graphite: new THREE.MeshPhysicalMaterial({ roughness: 0.3, metalness: 0.15, clearcoat: 0.8, clearcoatRoughness: 0.16 }),
+    porcelain: new THREE.MeshPhysicalMaterial({ roughness: 0.4, metalness: 0, clearcoat: 0.5, clearcoatRoughness: 0.3 }),
+    // Details printed on the light website slab stay dark in both themes.
+    ink: new THREE.MeshPhysicalMaterial({ color: 0x20232b, roughness: 0.35, metalness: 0.1, clearcoat: 0.6, clearcoatRoughness: 0.2 }),
+  };
+  function applyTheme() {
+    const css = getComputedStyle(document.documentElement);
+    const read = (name, fallback) => (css.getPropertyValue(name).trim() || fallback);
+    mats.cobalt.color.setStyle(read('--cobalt', '#2446FF'));
+    mats.peri.color.setStyle(read('--periwinkle', '#9AAAFF'));
+    mats.graphite.color.setStyle(read('--graphite', '#2B2F38'));
+    mats.porcelain.color.setStyle(read('--porcelain', '#F7F8FC'));
+  }
+  applyTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { applyTheme(); requestRender(); });
+  new MutationObserver(() => { applyTheme(); requestRender(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+
+  const geo = {
+    cross: plusGeometry(THREE, 0.5, 0.17, 0.16, 0.08),
+    cyl: roundedCylinder(THREE, 0.2, 0.9, 0.07),
+    sphere: new THREE.SphereGeometry(0.27, 48, 32),
+    ring: new THREE.TorusGeometry(0.33, 0.11, 28, 80),
+  };
+
+  // Everything lives in "design units": a box 6 units across, fitted to the free side of the hero.
+  const stageGroup = new THREE.Group();
+  scene.add(stageGroup);
+
+  // [type, material, scattered position, scattered rotation, size]
+  const PIECES = [
+    ['cross', 'cobalt', [1.9, 1.7, 0.4], [0.5, 0.3, 0.2], 1.0],
+    ['cross', 'cobalt', [-0.6, 0.9, -0.8], [-0.3, 0.8, 0.6], 0.85],
+    ['cross', 'peri', [2.9, -0.3, -1.2], [0.9, -0.4, 0.1], 0.9],
+    ['cross', 'cobalt', [0.4, -1.9, 0.8], [-0.6, -0.5, 0.9], 1.05],
+    ['cross', 'cobalt', [-2.8, 2.4, -2.0], [0.2, 0.9, -0.4], 0.7],
+    ['cross', 'peri', [-1.5, -2.6, -1.5], [1.1, 0.2, 0.5], 0.75],
+    ['cyl', 'cobalt', [0.9, 0.5, 1.2], [0.9, 0.2, 0.7], 1.0],
+    ['cyl', 'cobalt', [2.6, 2.6, -1.8], [-0.4, 0.3, -0.8], 0.8],
+    ['cyl', 'peri', [-1.2, -0.9, 0.2], [0.3, 0.1, -1.1], 0.9],
+    ['cyl', 'graphite', [3.3, -2.2, 0.3], [1.2, 0.5, 0.3], 0.8],
+    ['cyl', 'cobalt', [-3.5, -2.7, -2.5], [0.6, -0.2, 0.9], 0.7],
+    ['sphere', 'graphite', [1.3, 2.5, -0.5], [0, 0, 0], 0.8],
+    ['sphere', 'graphite', [-0.2, -0.3, 1.8], [0, 0, 0], 0.6],
+    ['sphere', 'graphite', [2.2, -1.2, 1.6], [0, 0, 0], 0.7],
+    ['sphere', 'cobalt', [-1.9, 0.2, -1.4], [0, 0, 0], 0.7],
+    ['sphere', 'peri', [1.5, -2.8, -1.0], [0, 0, 0], 0.9],
+    ['ring', 'cobalt', [-0.1, 2.1, 0.6], [0.8, 0.4, 0], 0.9],
+    ['ring', 'graphite', [3.4, 0.9, 0.9], [-0.5, 0.9, 0.3], 0.8],
+  ];
+  // Organised shelf: one row per shape type.
+  const GRID_SLOT = { cross: [0, 0], cyl: [1, 0], sphere: [2, 0], ring: [1, 5] };
+  const GRID_SIZE = { cross: 0.78, cyl: 0.85, sphere: 0.95, ring: 0.85 };
+  const shelfRotation = new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.16, -0.42, 0));
+  const slotsUsed = { cross: 0, cyl: 0, sphere: 0, ring: 0 };
+
+  const tmpE = new THREE.Euler();
+  const pieces = PIECES.map(([type, mat, pos, rot, size], i) => {
+    const mesh = new THREE.Mesh(geo[type], mats[mat]);
+    stageGroup.add(mesh);
+
+    // Shelf slot for the organised stage.
+    let row;
+    let col;
+    if (type === 'ring') {
+      row = slotsUsed.ring === 0 ? 1 : 2;
+      col = 5;
+    } else {
+      row = GRID_SLOT[type][0];
+      col = slotsUsed[type];
+    }
+    slotsUsed[type] += 1;
+    const shelfPos = new THREE.Vector3((col - 2.5) * 1.05, (1 - row) * 1.15 - 0.1, 0).applyQuaternion(shelfRotation);
+    const shelfQuat = shelfRotation.clone();
+
+    const seed = fract(Math.sin((i + 1) * 12.9898) * 43758.5453);
+    return {
+      mesh,
+      type,
+      a: { pos: new THREE.Vector3(...pos), rot: new THREE.Euler(...rot), size },
+      b: { pos: shelfPos, quat: shelfQuat, size: GRID_SIZE[type] },
+      orbit: { angle: (i / PIECES.length) * Math.PI * 2, size: 0.5 * size + 0.12 },
+      spin: new THREE.Vector3(0.15 + seed * 0.25, 0.2 + fract(seed * 7.1) * 0.3, 0.05 + fract(seed * 3.3) * 0.15).multiplyScalar(seed > 0.5 ? 1 : -1),
+      phase: seed * Math.PI * 2,
+      order: fract(i * 0.6180339887),
+      delay: 0.08 + fract(i * 0.381966) * 0.5,
+    };
+  });
+
+  // The "product": a small website that assembles in the final stage.
+  const site = buildMiniSite(THREE, mats, geo);
+  site.position.set(0, 0.15, 0.2);
+  site.visible = false;
+  stageGroup.add(site);
+
+  // Layout: the shapes take the right side on wide screens and the top half on narrow ones.
+  let wide = true;
+  function layout() {
+    const w = sticky.clientWidth;
+    const h = sticky.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    const worldH = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const worldW = worldH * camera.aspect;
+    wide = w >= 760 && w / h >= 0.95;
+    const r = wide ? { l: 0.42, r: 0.97, t: 0.12, b: 0.94 } : { l: 0.04, r: 0.96, t: 0.1, b: 0.5 };
+    const cx = ((r.l + r.r) / 2 - 0.5) * worldW;
+    const cy = (0.5 - (r.t + r.b) / 2) * worldH;
+    const half = Math.min(((r.r - r.l) * worldW) / 2, ((r.b - r.t) * worldH) / 2);
+    stageGroup.position.set(cx, cy, 0);
+    stageGroup.scale.setScalar(half / 3);
+    requestRender();
+  }
+  new ResizeObserver(layout).observe(sticky);
+  layout();
+
+  // Pointer parallax on devices with a mouse.
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  window.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    pointer.tx = (e.clientX / window.innerWidth) * 2 - 1;
+    pointer.ty = (e.clientY / window.innerHeight) * 2 - 1;
+  }, { passive: true });
+
+  const vA = new THREE.Vector3();
+  const vC = new THREE.Vector3();
+  const qA = new THREE.Quaternion();
+  const qC = new THREE.Quaternion();
+  const [T1, T2] = window.Plainly.thresholds;
+  let prog = window.Plainly.progress();
+  let clock = 0;
+  let introClock = 0;
+  let last = performance.now();
+  let firstFrame = true;
+
+  function step(now) {
+    const dt = Math.min(Math.max((now - last) / 1000, 0), 0.05);
+    last = now;
+    const still = reduceMotion.matches;
+    if (!still) clock += dt;
+    introClock += dt;
+
+    const target = window.Plainly.progress();
+    prog = still ? target : prog + (target - prog) * (1 - Math.exp(-dt * 5));
+    pointer.x += (pointer.tx - pointer.x) * (1 - Math.exp(-dt * 3));
+    pointer.y += (pointer.ty - pointer.y) * (1 - Math.exp(-dt * 3));
+
+    // Stage blends: scattered -> shelf around T1, shelf -> website around T2.
+    const t1 = smoothstep(T1 - 0.14, T1 + 0.14, prog);
+    const t2 = smoothstep(T2 - 0.13, T2 + 0.13, prog);
+
+    stageGroup.rotation.set(still ? 0 : pointer.y * 0.08, still ? 0 : pointer.x * 0.14, 0);
+
+    for (const p of pieces) {
+      const e1 = stagger(t1, p.order);
+      const e2 = stagger(t2, p.order);
+
+      // Scattered: tumble and float.
+      const floatAmp = 0.16 * (1 - e1) + 0.04 * e1;
+      vA.copy(p.a.pos);
+      vA.y += Math.sin(clock * 0.8 + p.phase) * floatAmp;
+      vA.x += Math.cos(clock * 0.55 + p.phase) * floatAmp * 0.5;
+      tmpE.set(p.a.rot.x + clock * p.spin.x, p.a.rot.y + clock * p.spin.y, p.a.rot.z + clock * p.spin.z);
+      qA.setFromEuler(tmpE);
+
+      // Organised shelf.
+      vA.lerp(p.b.pos, e1);
+      qA.slerp(p.b.quat, e1);
+
+      // Orbit around the website.
+      if (e2 > 0) {
+        const ang = p.orbit.angle + clock * 0.14;
+        // Tilted ring: pieces pass below the site on the near side and behind it on the far side.
+        vC.set(Math.cos(ang) * 2.75, 0.15 - Math.sin(ang) * 1.45 + Math.sin(clock * 0.9 + p.phase) * 0.05, Math.sin(ang) * 1.6);
+        tmpE.set(p.a.rot.x + clock * p.spin.x * 0.6, p.a.rot.y + clock * p.spin.y * 0.6, p.a.rot.z);
+        qC.setFromEuler(tmpE);
+        vA.lerp(vC, e2);
+        qA.slerp(qC, e2);
+      }
+
+      const intro = still ? 1 : easeOutBack(clamp01((introClock - p.delay) / 0.9));
+      const size = lerp(lerp(p.a.size, p.b.size, e1), p.orbit.size, e2) * intro;
+      p.mesh.position.copy(vA);
+      p.mesh.quaternion.copy(qA);
+      p.mesh.scale.setScalar(Math.max(size, 0.0001));
+    }
+
+    // Website slab grows in during the last stage.
+    const s = easeOutBack(t2);
+    site.visible = s > 0.001;
+    if (site.visible) {
+      site.scale.setScalar(s);
+      site.rotation.set(-0.1 + Math.sin(clock * 0.5) * 0.03, -0.32 + Math.sin(clock * 0.35) * 0.06, 0.02);
+      site.userData.logo.rotation.y = clock * 0.8;
+    }
+
+    renderer.render(scene, camera);
+    if (firstFrame) {
+      firstFrame = false;
+      canvas.classList.add('is-ready');
+    }
+  }
+
+  function loop(now) {
+    if (!running) return;
+    step(now);
+    requestAnimationFrame(loop);
+  }
+
+  function setRunning(on) {
+    if (on === running) return;
+    running = on;
+    if (on) {
+      last = performance.now();
+      requestAnimationFrame(loop);
+    }
+  }
+  // Draw a single frame while paused, so layout and theme changes still show.
+  function requestRender() {
+    if (running) return;
+    requestAnimationFrame((now) => {
+      if (running) return;
+      last = now;
+      step(now);
+    });
+  }
+  new IntersectionObserver((entries) => {
+    inView = entries[0].isIntersecting;
+    setRunning(inView && !document.hidden);
+  }).observe(hero);
+  document.addEventListener('visibilitychange', () => setRunning(inView && !document.hidden));
+  canvas.addEventListener('webglcontextlost', (e) => {
+    e.preventDefault();
+    setRunning(false);
+    hero.classList.add('no-webgl');
+  });
+  setRunning(!document.hidden);
+}
+
+/* ---------- helpers ---------- */
+function fract(x) { return x - Math.floor(x); }
+function lerp(a, b, t) { return a + (b - a) * t; }
+function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+function smoothstep(a, b, x) { const t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); }
+function stagger(t, order) { const u = clamp01((t - order * 0.3) / 0.7); return u * u * (3 - 2 * u); }
+function easeOutBack(t) {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  const c1 = 1.4;
+  const c3 = c1 + 1;
+  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+}
+
+// Outline with every corner rounded (works for convex and concave corners).
+function roundedOutline(THREE, pts, radius) {
+  const shape = new THREE.Shape();
+  const n = pts.length;
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i - 1 + n) % n];
+    const p1 = pts[i];
+    const p2 = pts[(i + 1) % n];
+    const d1 = Math.hypot(p0[0] - p1[0], p0[1] - p1[1]);
+    const d2 = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+    const r = Math.min(radius, d1 / 2, d2 / 2);
+    const ax = p1[0] + ((p0[0] - p1[0]) / d1) * r;
+    const ay = p1[1] + ((p0[1] - p1[1]) / d1) * r;
+    const bx = p1[0] + ((p2[0] - p1[0]) / d2) * r;
+    const by = p1[1] + ((p2[1] - p1[1]) / d2) * r;
+    if (i === 0) shape.moveTo(ax, ay);
+    else shape.lineTo(ax, ay);
+    shape.quadraticCurveTo(p1[0], p1[1], bx, by);
+  }
+  shape.closePath();
+  return shape;
+}
+
+function plusGeometry(THREE, len, half, depth, bevel) {
+  const L = len - bevel;
+  const a = half - bevel;
+  const pts = [[-a, L], [a, L], [a, a], [L, a], [L, -a], [a, -a], [a, -L], [-a, -L], [-a, -a], [-L, -a], [-L, a], [-a, a]];
+  const g = new THREE.ExtrudeGeometry(roundedOutline(THREE, pts, 0.06), {
+    depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 6, curveSegments: 6,
+  });
+  g.center();
+  return g;
+}
+
+function roundedSlab(THREE, w, h, r, depth, bevel) {
+  const x = w / 2 - bevel;
+  const y = h / 2 - bevel;
+  const g = new THREE.ExtrudeGeometry(roundedOutline(THREE, [[-x, -y], [x, -y], [x, y], [-x, y]], Math.max(r - bevel, 0.005)), {
+    depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 4, curveSegments: 8,
+  });
+  g.center();
+  return g;
+}
+
+function roundedCylinder(THREE, R, H, r) {
+  const pts = [];
+  const h = H / 2;
+  const steps = 8;
+  pts.push(new THREE.Vector2(0, -h));
+  for (let i = 0; i <= steps; i++) {
+    const t = -Math.PI / 2 + (i / steps) * (Math.PI / 2);
+    pts.push(new THREE.Vector2(R - r + Math.cos(t) * r, -h + r + Math.sin(t) * r));
+  }
+  for (let i = 0; i <= steps; i++) {
+    const t = (i / steps) * (Math.PI / 2);
+    pts.push(new THREE.Vector2(R - r + Math.cos(t) * r, h - r + Math.sin(t) * r));
+  }
+  pts.push(new THREE.Vector2(0, h));
+  return new THREE.LatheGeometry(pts, 56);
+}
+
+function buildMiniSite(THREE, mats, geo) {
+  const group = new THREE.Group();
+  const add = (geometry, material, x, y, z) => {
+    const m = new THREE.Mesh(geometry, material);
+    m.position.set(x, y, z);
+    group.add(m);
+    return m;
+  };
+  add(roundedSlab(THREE, 3.2, 2.1, 0.22, 0.1, 0.06), mats.porcelain, 0, 0, 0);
+  const dot = new THREE.SphereGeometry(0.055, 24, 16);
+  add(dot, mats.ink, -1.36, 0.8, 0.13);
+  add(dot, mats.cobalt, -1.18, 0.8, 0.13);
+  add(dot, mats.peri, -1.0, 0.8, 0.13);
+  add(roundedSlab(THREE, 1.7, 0.3, 0.08, 0.02, 0.02), mats.cobalt, -0.55, 0.32, 0.13);
+  add(roundedSlab(THREE, 1.35, 0.1, 0.05, 0.01, 0.02), mats.peri, -0.72, -0.02, 0.12);
+  add(roundedSlab(THREE, 1.0, 0.1, 0.05, 0.01, 0.02), mats.peri, -0.895, -0.2, 0.12);
+  add(roundedSlab(THREE, 0.72, 0.24, 0.12, 0.02, 0.03), mats.ink, -1.06, -0.58, 0.13);
+  const logo = add(geo.cross, mats.cobalt, 0.85, -0.05, 0.4);
+  logo.scale.setScalar(0.62);
+  group.userData.logo = logo;
+  return group;
+}
+
+// A small white room with bright panels, rendered once into an environment map.
+function buildStudio(THREE) {
+  const env = new THREE.Scene();
+  const box = new THREE.BoxGeometry(1, 1, 1);
+  const room = new THREE.Mesh(box, new THREE.MeshStandardMaterial({ side: THREE.BackSide, color: 0xffffff }));
+  room.position.set(0, 10, 0);
+  room.scale.set(32, 28, 30);
+  env.add(room);
+  const bulb = new THREE.PointLight(0xffffff, 900, 30, 2);
+  bulb.position.set(0, 16, 0);
+  env.add(bulb);
+  const panel = (intensity, tint, pos, scale) => {
+    const mat = new THREE.MeshBasicMaterial();
+    mat.color.set(tint).multiplyScalar(intensity);
+    const m = new THREE.Mesh(box, mat);
+    m.position.set(...pos);
+    m.scale.set(...scale);
+    env.add(m);
+  };
+  panel(40, 0xffffff, [-15.5, 13, 7], [0.1, 3, 4]);
+  panel(30, 0xdfe6ff, [15, 11, -2], [0.15, 5, 7]);
+  panel(36, 0xffffff, [0, 9, 14.5], [6, 5, 0.1]);
+  panel(16, 0xe8ecff, [3, 11, -14.5], [3, 2.5, 0.1]);
+  panel(80, 0xffffff, [0, 23.5, 0], [4, 0.1, 4]);
+  return env;
+}
+</script>
+</body>
+</html>
